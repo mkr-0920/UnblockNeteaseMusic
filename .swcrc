@@ -1,12 +1,4 @@
 {
-	"env": {
-		"targets": {
-			"node": "12"
-		},
-		"mode": "usage",
-		"coreJs": "3.29",
-		"shippedProposals": true
-	},
 	"jsc": {
 		"parser": {
 			"syntax": "ecmascript"

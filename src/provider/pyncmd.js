@@ -3,32 +3,26 @@ const request = require('../request');
 const { getManagedCacheStorage } = require('../cache');
 
 const track = (info) => {
+	// Credit: This API is provided by GD studio (music.gdstudio.xyz).
 	const url =
-		'http://76.76.21.21/api/pyncm?module=track&method=GetTrackAudio&song_ids=' +
+		'https://music-api.gdstudio.xyz/api.php?types=url&source=netease&id=' +
 		info.id +
-		'&bitrate=' +
-		['999000', '320000'].slice(
+		'&br=' +
+		['999', '320'].slice(
 			select.ENABLE_FLAC ? 0 : 1,
 			select.ENABLE_FLAC ? 1 : 2
 		);
-	const headers = {
-		Host: 'music.163-my-beloved.com',
-	};
-	return request('GET', url, headers)
+	return request('GET', url)
 		.then((response) => response.json())
 		.then((jsonBody) => {
 			if (
 				jsonBody &&
 				typeof jsonBody === 'object' &&
-				'code' in jsonBody &&
-				jsonBody.code !== 200
+				(!'url') in jsonBody
 			)
 				return Promise.reject();
 
-			const matched = jsonBody.data.find((song) => song.id === info.id);
-			if (matched && matched.url) return matched.url;
-
-			return Promise.reject();
+			return jsonBody.br > 0 ? jsonBody.url : Promise.reject();
 		});
 };
 
