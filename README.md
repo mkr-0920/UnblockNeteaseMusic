@@ -82,7 +82,7 @@ docker run -e JSON_LOG=true -e LOG_LEVEL=debug pan93412/unblock-netease-music-en
 若要传入配置参数，只要在 `docker run` 的 image 之后传入参数即可：
 
 ```bash
-docker run pan93412/unblock-netease-music-enhanced -o bilibili -p 1234
+docker run pan93412/unblock-netease-music-enhanced -o kuwo -p 1234
 ```
 
 #### 自行编译
@@ -158,7 +158,7 @@ optional arguments:
 将有兴趣的音源代号用 `-o` 传入 UNM 即可使用，像这样：
 
 ```bash
-node app.js -o bilibili ytdlp
+node app.js -o kuwo migu
 ```
 
 | 名称                        | 代号         | 默认启用 | 注意事项                                                                       |
@@ -172,7 +172,7 @@ node app.js -o bilibili ytdlp
 | yt-download                 | `ytdownload` |          | **似乎不能使用**。                                                             |
 | YouTube（通过 `youtube-dl`) | `youtubedl`  |          | 需要自行安装 `youtube-dl`。                                                    |
 | YouTube（通过 `yt-dlp`)     | `ytdlp`      | ✅       | 需要自行安装 `yt-dlp`（`youtube-dl` 仍在活跃维护的 fork）。                    |
-| B 站音乐                    | `bilibili`   | ✅       |                                                                                |
+| navidrome                    | `navidrome`   |         |  需要自建 navidrome 音乐库                                                                              |
 | 第三方网易云 API            | `pyncmd`     |          |                                                                                |
 
 ### 环境变量
