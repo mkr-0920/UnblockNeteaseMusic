@@ -16,7 +16,7 @@ const ENABLE_LOCAL_VIP = ['true', 'cvip', 'svip'].includes(
 );
 const BLOCK_ADS = (process.env.BLOCK_ADS || '').toLowerCase() === 'true';
 const DISABLE_UPGRADE_CHECK =
-	(process.env.DISABLE_UPGRADE_CHECK || '').toLowerCase() === 'true';
+    (process.env.DISABLE_UPGRADE_CHECK || 'true').toLowerCase() === 'true';
 const ENABLE_LOCAL_SVIP =
 	(process.env.ENABLE_LOCAL_VIP || '').toLowerCase() === 'svip';
 const LOCAL_VIP_UID = (process.env.LOCAL_VIP_UID || '')
