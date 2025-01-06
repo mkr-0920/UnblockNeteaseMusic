@@ -56,37 +56,6 @@ http 代理使用 `127.0.0.1`，端口默认使用 `8080`。
 
 ### Docker 作法
 
-#### Docker Hub
-
-见 [pan93412/unblock-netease-music-enhanced](https://hub.docker.com/repository/docker/pan93412/unblock-netease-music-enhanced)
-。`latest` 是从 `enhanced` 组建的最新版本；`release` 是最新 tag 的版本。
-
-直接运行 `pan93412/unblock-netease-music-enhanced` 的命令如下：
-
-```bash
-docker run pan93412/unblock-netease-music-enhanced
-```
-
-若要更新 UnblockNeteaseMusic，请运行以下命令后重新 `run`：
-
-```
-docker pull pan93412/unblock-netease-music-enhanced
-```
-
-若要指定环境变量，您可以往 `docker run` 传入 `-e`，就像这样：
-
-```bash
-docker run -e JSON_LOG=true -e LOG_LEVEL=debug pan93412/unblock-netease-music-enhanced
-```
-
-若要传入配置参数，只要在 `docker run` 的 image 之后传入参数即可：
-
-```bash
-docker run pan93412/unblock-netease-music-enhanced -o kuwo -p 1234
-```
-
-#### 自行编译
-
 ```bash
 git clone https://github.com/mkr-0920/UnblockNeteaseMusic.git UnblockNeteaseMusic
 cd UnblockNeteaseMusic
