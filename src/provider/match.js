@@ -12,7 +12,8 @@ const { logScope } = require('../logger');
 const RequestCancelled = require('../exceptions/RequestCancelled');
 
 const logger = logScope('provider/match');
-
+const FOLLOW_SOURCE_ORDER =
+    (process.env.FOLLOW_SOURCE_ORDER || 'true').toLowerCase() === 'true';
 /**
  * Is this http request success?
  *
@@ -21,7 +22,7 @@ const logger = logScope('provider/match');
 const isHttpResponseOk = (code) => code >= 200 && code <= 299;
 
 /** @type {Map<string, string>} */
-const headerReferer = new Map([['bilivideo.com', 'https://www.bilibili.com/']]);
+const headerReferer = new Map([[]]);
 
 /**
  * @typedef {{ size: number, br: number | null, url: string | null, md5: string | null, source: string }} AudioData
@@ -86,7 +87,7 @@ async function match(id, source, data) {
 
 		audioDataArr = audioDataArr.map((result) => result.value);
 		audioData = audioDataArr.reduce((a, b) => (a.br >= b.br ? a : b));
-	} else if (process.env.FOLLOW_SOURCE_ORDER) {
+	} else if (FOLLOW_SOURCE_ORDER) {
 		for (let i = 0; i < candidate.length; i++) {
 			const source = candidate[i];
 			try {
