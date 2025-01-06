@@ -82,13 +82,13 @@ docker run -e JSON_LOG=true -e LOG_LEVEL=debug pan93412/unblock-netease-music-en
 若要传入配置参数，只要在 `docker run` 的 image 之后传入参数即可：
 
 ```bash
-docker run pan93412/unblock-netease-music-enhanced -o bilibili -p 1234
+docker run pan93412/unblock-netease-music-enhanced -o kuwo -p 1234
 ```
 
 #### 自行编译
 
 ```bash
-git clone https://github.com/UnblockNeteaseMusic/server.git UnblockNeteaseMusic
+git clone https://github.com/mkr-0920/UnblockNeteaseMusic.git UnblockNeteaseMusic
 cd UnblockNeteaseMusic
 docker-compose up
 ```
@@ -96,7 +96,7 @@ docker-compose up
 ### 直接使用 Repo 最新版本
 
 ```bash
-git clone https://github.com/UnblockNeteaseMusic/server.git UnblockNeteaseMusic
+git clone https://github.com/mkr-0920/UnblockNeteaseMusic.git UnblockNeteaseMusic
 cd UnblockNeteaseMusic
 node app.js # 建议使用 screen / tmux 把 app.js 挂后台
 ```
@@ -167,16 +167,16 @@ node app.js -o bilibili ytdlp
 
 | 名称                        | 代号        | 默认启用 | 注意事项                                                                       |
 | --------------------------- | ----------- | -------- | ------------------------------------------------------------------------------ |
-| QQ 音乐                     | `qq`        |          | 需要准备自己的 `QQ_COOKIE`（请参阅下方〈环境变量〉处）。必须使用 QQ 登录。     |
+| QQ 音乐                     | `qq`        | ✅         |      |
 | 酷狗音乐                    | `kugou`     | ✅       |                                                                                |
 | 酷我音乐                    | `kuwo`      | ✅       |                                                                                |
-| 咪咕音乐                    | `migu`      | ✅       | 需要准备自己的 `MIGU_COOKIE`（请参阅下方〈环境变量〉处）。                     |
+| 咪咕音乐                    | `migu`      | ✅       |                      |
 | JOOX                        | `joox`      |          | 需要准备自己的 `JOOX_COOKIE`（请参阅下方〈环境变量〉处）。似乎有严格地区限制。 |
 | YouTube（纯 JS 解析方式）   | `youtube`   |          | 需要 Google 认定的**非中国大陆区域** IP 地址。                                 |
 | YouTube（通过 `youtube-dl`) | `youtubedl` |          | 需要自行安装 `youtube-dl`。                                                    |
-| YouTube（通过 `yt-dlp`)     | `ytdlp`     | ✅       | 需要自行安装 `yt-dlp`（`youtube-dl` 仍在活跃维护的 fork）。                    |
-| B 站音乐                    | `bilibili`  | ✅       |                                                                                |
-| 第三方网易云 API            | `pyncmd`    |          |                                                                                |
+| YouTube（通过 `yt-dlp`)     | `ytdlp`     |        | 需要自行安装 `yt-dlp`（`youtube-dl` 仍在活跃维护的 fork）。                    |
+| navidrome                    | `navidrome`  | ✅       |                                                                                |
+| 第三方网易云 API            | `pyncmd`    | ✅         |                                                                                |
 
 -   支持 `pyncmd` 的 API 服务由 GD studio <https://music.gdstudio.xyz> 提供。
 
@@ -233,42 +233,7 @@ node app.js -o bilibili ytdlp
 checknetisolation loopbackexempt -a -n="1F8B0F94.122165AE053F_j2p0p5q0044a6"
 ```
 
-### 方法 1. 修改 hosts
-
-向 hosts 文件添加几条规则
-
-```hosts
-<Server IP> music.163.com
-<Server IP> interface.music.163.com
-<Server IP> interface3.music.163.com
-<Server IP> interface.music.163.com.163jiasu.com
-<Server IP> interface3.music.163.com.163jiasu.com
-```
-
-> 使用此方法必须监听 80 端口 `-p 80`
->
-> **若在本机运行程序**，请指定网易云服务器 IP `-f xxx.xxx.xxx.xxx` (可在修改 hosts 前通过 `ping music.163.com` 获得) **或** 使用代理 `-u http(s)://xxx.xxx.xxx.xxx:xxx`，以防请求死循环
->
-> **Android 客户端下修改 hosts 无法直接使用**，原因和解决方法详见[云音乐安卓又搞事啦](https://jixun.moe/post/netease-android-hosts-bypass/)，[安卓免 root 绕过网易云音乐 IP 限制](https://jixun.moe/post/android-block-netease-without-root/)
-
-### 方法 2. 设置代理
-
-PAC 自动代理脚本地址 `http://<Server Name:PORT>/proxy.pac`
-
-全局代理地址填写服务器地址和端口号即可
-
-| 平台    | 基础设置                              |
-| :------ | :------------------------------------ |
-| Windows | 设置 > 工具 > 自定义代理 (客户端内)   |
-| UWP     | Windows 设置 > 网络和 Internet > 代理 |
-| Linux   | 系统设置 > 网络 > 网络代理            |
-| macOS   | 系统偏好设置 > 网络 > 高级 > 代理     |
-| Android | WLAN > 修改网络 > 高级选项 > 代理     |
-| iOS     | 无线局域网 > HTTP 代理 > 配置代理     |
-
-> 代理工具和方法有很多请自行探索，欢迎在 issues 讨论
-
-### ✳ 方法 3. 调用接口
+### ✳ 调用接口
 
 作为依赖库使用
 
