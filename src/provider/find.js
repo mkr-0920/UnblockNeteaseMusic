@@ -1,5 +1,8 @@
 const request = require('../request');
 const { getManagedCacheStorage } = require('../cache');
+const SEARCH_ALBUM =
+    (process.env.SEARCH_ALBUM || 'true').toLowerCase() === 'true';
+
 
 const filter = (object, keys) =>
 	Object.keys(object).reduce(
@@ -37,7 +40,7 @@ const getFormatData = (data) => {
 			info.name +
 			' - ' +
 			limit(info.artists.map((artist) => artist.name)).join(' / ');
-		if (process.env.SEARCH_ALBUM === 'true') {
+		if (SEARCH_ALBUM) {
 			let album = info.album?.name;
 			if (album && album !== info.name) {
 				info.keyword += ` ${album}`;
