@@ -17,12 +17,6 @@
 
 ## 运行
 
-### 直接打开可运行文件
-
-去右侧的 Releases 找到最新版本，然后在下方的 Assets 找到符合你系统架构的可运行文件。下载回来后点两下即可使用。
-
-> macOS 因为签名问题，暂时不提供可运行文件。请先按照其他做法使用。
-
 ### NPM 安装
 
 #### 安装成依赖
@@ -46,7 +40,7 @@ npx -p @unblockneteasemusic/server unblockneteasemusic
 
 #### 配置
 
-http 代理使用 `127.0.0.1`，端口默认使用 `8080`。
+http 代理使用 `127.0.0.1`，端口默认使用 `8081`。
 
 如果想要添加启动参数和环境变量，请在项目根目录中的 `nw.js` 中配置 `scriptOptions` 和 `env`。
 
@@ -168,8 +162,6 @@ node app.js -o bilibili ytdlp
 | LOG_LEVEL             | str  | 日志输出等级。请见〈日志等级〉部分。                                                                    | `LOG_LEVEL=debug`                                                |
 | LOG_FILE              | str  | 从 Pino 端设置日志输出的文件位置。也可以用 `*sh` 的输出重导向功能 (`node app.js >> app.log`) 代替       | `LOG_FILE=app.log`                                               |
 | JOOX_COOKIE           | str  | JOOX 音源的 wmid 和 session_key cookie                                                                  | `JOOX_COOKIE="wmid=<your_wmid>; session_key=<your_session_key>"` |
-| MIGU_COOKIE           | str  | 咪咕音源的 aversionid cookie                                                                            | `MIGU_COOKIE="<your_aversionid>"`                                |
-| QQ_COOKIE             | str  | QQ 音源的 uin 和 qm_keyst cookie                                                                        | `QQ_COOKIE="uin=<your_uin>; qm_keyst=<your_qm_keyst>"`           |
 | YOUTUBE_KEY           | str  | Youtube 音源的 Data API v3 Key                                                                          | `YOUTUBE_KEY="<your_data_api_key>"`                              |
 | SIGN_CERT             | path | 自定义证书文件                                                                                          | `SIGN_CERT="./server.crt"`                                       |
 | SIGN_KEY              | path | 自定义密钥文件                                                                                          | `SIGN_KEY="./server.key"`                                        |
