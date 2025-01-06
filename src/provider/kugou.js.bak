@@ -1,0 +1,40 @@
+const insure = require('./insure');
+const select = require('./select');
+const request = require('../request');
+const { getManagedCacheStorage } = require('../cache');
+
+const track = (info) => {
+	const url =
+		'https://www.hhlqilongzhu.cn/api/dg_kugouSQ.php?n=1&type=json&quality=&msg=' +
+		encodeURIComponent(info.keyword);
+	return request('GET', url)
+	.then((response) => response.json())
+	.then((jsonBody) => {
+		const playurl = jsonBody.music_url; // 获取音乐播放链接
+		const artist = jsonBody.singer; // 获取 API 返回的歌手名
+		const artists = info.artists; // 从输入信息中提取艺术家信息
+
+		// 提取第一个艺术家的名字，假设只比较第一个
+		const singer = artists[0].name; // 获取输入信息中的歌手名
+
+		// 确保 artist 和 singer 都是字符串并进行标准化处理
+		const normalizedArtist = encodeURIComponent(artist);
+		const normalizedSinger = encodeURIComponent(singer);
+
+		// 比较标准化后的歌手名
+		if (normalizedSinger !== normalizedArtist) {
+			return Promise.reject(new Error('Artist mismatch'));
+		} else {
+			return playurl; // 如果相同，返回播放链接
+		}
+	})
+	.catch((error) => {
+		console.error('Error:', error.message);
+		// 处理错误，例如显示用户友好的消息
+	});
+};
+
+const cs = getManagedCacheStorage('provider/kugou');
+const check = (info) => cs.cache(info, () => track(info));
+
+module.exports = { check, track };
